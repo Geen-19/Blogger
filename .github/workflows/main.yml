@@ -37,7 +37,6 @@ jobs:
 
       - name: Sanity check Tailwind present
         run: |
-          npx tailwindcss --version
           node -e "console.log(require.resolve('tailwindcss/package.json'))"
 
       - name: Generate Prisma Client
