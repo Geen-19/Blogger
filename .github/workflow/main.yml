@@ -8,8 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-latestW
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       KINDE_CLIENT_ID: ${{ secrets.KINDE_CLIENT_ID }}
