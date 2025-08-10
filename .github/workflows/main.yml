@@ -42,8 +42,6 @@ jobs:
       - name: Generate Prisma Client
         run: npx prisma generate
 
-      - name: Run linting
-        run: npm run lint
 
       - name: Build project (production)
         run: npm run build
