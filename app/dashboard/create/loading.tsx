@@ -2,6 +2,7 @@
 import { Skeleton } from "@/components/ui/skeleton"
 export default function LoadingDashboard () {
     return (
-        <p>Mudinchu</p>
+        <p>Loading</p>
     )
 }
+
