@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest   # fixed: removed stray "W"
+    runs-on: ubuntu-latest
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       KINDE_CLIENT_ID: ${{ secrets.KINDE_CLIENT_ID }}
@@ -31,22 +31,25 @@ jobs:
       - name: Install dependencies (include dev deps)
         run: npm ci
         env:
-          # make 100% sure devDependencies are installed
           NODE_ENV: ""
           NPM_CONFIG_PRODUCTION: "false"
 
-      - name: Sanity check Tailwind present
+      - name: Sanity check Tailwind v4
         run: |
-          node -e "console.log(require.resolve('tailwindcss/package.json'))"
+          node -e "console.log('postcss:', require.resolve('postcss/package.json'))"
+          node -e "console.log('@tailwindcss/postcss:', require.resolve('@tailwindcss/postcss/package.json'))"
+          node -e "console.log('tailwindcss:', require.resolve('tailwindcss/package.json'))"
 
       - name: Generate Prisma Client
         run: npx prisma generate
 
+      - name: Lint
+        run: npm run lint
 
-      - name: Build project (production)
+      - name: Build (prod)
         run: npm run build
         env:
           NODE_ENV: production
 
-      - name: Run tests
+      - name: Test
         run: npm test
