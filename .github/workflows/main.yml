@@ -34,11 +34,6 @@ jobs:
           NODE_ENV: ""
           NPM_CONFIG_PRODUCTION: "false"
 
-      - name: Sanity check Tailwind v4
-        run: |
-          node -e "console.log('postcss:', require.resolve('postcss/package.json'))"
-          node -e "console.log('@tailwindcss/postcss:', require.resolve('@tailwindcss/postcss/package.json'))"
-          node -e "console.log('tailwindcss:', require.resolve('tailwindcss/package.json'))"
 
       - name: Generate Prisma Client
         run: npx prisma generate
