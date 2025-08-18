@@ -14,13 +14,15 @@ interface IappProps {
 }
 
 export function BlogPostCard({ data }: IappProps) {
-    console.log('BlogPost card', data);
+    if (process.env.NODE_ENV !== 'production') {
+        console.log('BlogPost card', data);
+    }
     return (
         <div className=" relative overflow-hidden rounded-lg border-gray-200 bg-white border p-4 shadow-md transition-all 
         hover:shadow-lg">
             <Link href={`/post/${data.id}`} className="block w-full h-full">
                 <div className="relative h-48 overflow-hidden">
-                    <Image className="object-cover transition-transform duration-300 hover:105" src={data.imageUrl} alt="" fill />
+                    <Image className="object-cover transition-transform duration-300 hover:scale-105" src={data.imageUrl} alt={data.title} fill />
                 </div>
 
                 <div className="p-4">
@@ -34,7 +36,7 @@ export function BlogPostCard({ data }: IappProps) {
                             <div className="relative size-8 overflow-hidden rounded-full">
                                 <Image src={data.authorImage} alt= {data.authorName} fill className="object-cover" />
                             </div>
-                            <p className="text-sm font-medium text-grey-700">{data.authorName}</p>
+                            <p className="text-sm font-medium text-gray-700">{data.authorName}</p>
                         </div>
                         <time className="text-xs text-gray-500">
                             {data.createdAt.toDateString()}

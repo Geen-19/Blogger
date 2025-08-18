@@ -6,23 +6,25 @@ import { BlogPostCard } from "@/components/general/BlogPostCard";
 import { resolve } from "path";
 async function getData(userId: string) {
   await new Promise((resolve) => setTimeout(resolve, 2000))
-
+    if (!process.env.DATABASE_URL) {
+      return [] as Awaited<ReturnType<typeof prisma.blogPost.findMany>>;
+    }
     const data = await prisma.blogPost.findMany({
-        where: {
-            authorId: userId, // Replace with actual logic to get the post ID
-        },
-        orderBy: {
-            createdAt: "desc", // Order by creation date, most recent first
-        },
-        select: {
-            title: true,
-            content: true,
-            imageUrl: true,
-            authorImage: true,
-            authorName: true,
-            id: true,
-            createdAt: true,
-        }
+      where: {
+        authorId: userId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      select: {
+        title: true,
+        content: true,
+        imageUrl: true,
+        authorImage: true,
+        authorName: true,
+        id: true,
+        createdAt: true,
+      }
     });
     return data;
 }
@@ -39,10 +41,9 @@ export default async function Dashboard() {
                 </Link>
             </div>
             <div className="grid grid-cols-3">
-            {data.map((item, index) => (
-
-                <div key={index} className="border p-4 rounded-lg shadow-md">
-                    <BlogPostCard data={item} key={item.id} ></BlogPostCard>
+            {data.map((item) => (
+                <div key={item.id} className="border p-4 rounded-lg shadow-md">
+                    <BlogPostCard data={item}></BlogPostCard>
                 </div>
             ))}
             </div>
