@@ -1,8 +1,6 @@
 @import "tailwindcss";
+@import "tailwindcss/theme";
 @import "tw-animate-css";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 @custom-variant dark (&:is(.dark *));
 
@@ -120,7 +118,4 @@
     /* Tailwind v4: replace invalid design tokens with equivalent ring/border */
     @apply border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
+
