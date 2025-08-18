@@ -1,11 +1,3 @@
-import type { Config } from 'tailwindcss';
-
-export default {
-  content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
-  theme: { extend: {} },
-  plugins: [],
-} satisfies Config;
+// Tailwind CSS v4 uses the new configless setup. This file is no longer needed,
+// but we keep a minimal export for tooling compatibility.
+export default {};
