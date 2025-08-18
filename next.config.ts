@@ -10,12 +10,7 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
-      {
-        protocol: "http",
-        hostname: "google.com",
-        port: "",
-        pathname: "/**",
-      },
+      // Removed insecure/non-image domain to avoid mixed content and SSRF risks
       {
         protocol: "https",
         hostname: "lh3.googleusercontent.com",

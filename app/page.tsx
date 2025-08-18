@@ -2,20 +2,29 @@ import { prisma } from "./utils/db";
 import { BlogPostCard } from "@/components/general/BlogPostCard";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
+
 async function getData() {
   await new Promise((resolve) => setTimeout(resolve, 2000))
-  const data = await prisma.blogPost.findMany({
-    select: {
-      title: true,
-      content: true,
-      imageUrl: true, // Assuming you have an image field
-      authorImage: true, // Assuming you have an author image field
-      authorName: true, // Assuming you have an author name fielda
-      id: true, // Assuming you want to display the post ID
-      createdAt: true, // Assuming you want to display the creation date
+  try {
+    if (!process.env.DATABASE_URL) {
+      return [] as Awaited<ReturnType<typeof prisma.blogPost.findMany>>;
     }
-  });
-  return data;
+    const data = await prisma.blogPost.findMany({
+      select: {
+        title: true,
+        content: true,
+        imageUrl: true,
+        authorImage: true,
+        authorName: true,
+        id: true,
+        createdAt: true,
+      }
+    });
+    return data;
+  } catch {
+    return [] as Awaited<ReturnType<typeof prisma.blogPost.findMany>>;
+  }
 }
 
 export default function Home() {
@@ -33,9 +42,9 @@ export default function Home() {
 async function BlogPosts() {
   const data = await getData();
   return (<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    {data.map((item, index) => (
-      <div key={index} className="border p-4 rounded-lg shadow-md">
-        <BlogPostCard data={item} key={index} />
+    {data.map((item) => (
+      <div key={item.id} className="border p-4 rounded-lg shadow-md">
+        <BlogPostCard data={item} />
       </div>
     ))}
 

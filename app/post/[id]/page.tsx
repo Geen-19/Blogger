@@ -6,6 +6,11 @@ import { buttonVariants } from '@/components/ui/button';
 import { CardContent } from '@/components/ui/card';
 import { Card } from '@/components/ui/card';
 async function getData(id: string) {
+type Params = Promise<{ id: string }>;
+async function getDats(id: string) {
+    if (!process.env.DATABASE_URL) {
+        return notFound();
+    }
     const data = await prisma.blogPost.findUnique({
         where: {
             id: id
