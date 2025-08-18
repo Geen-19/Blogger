@@ -117,7 +117,8 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    /* Tailwind v4: replace invalid design tokens with equivalent ring/border */
+    @apply border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;

@@ -7,6 +7,9 @@ import { CardContent } from '@/components/ui/card';
 import { Card } from '@/components/ui/card';
 type Params = Promise<{ id: string }>;
 async function getDats(id: string) {
+    if (!process.env.DATABASE_URL) {
+        return notFound();
+    }
     const data = await prisma.blogPost.findUnique({
         where: {
             id: id
