@@ -5,8 +5,10 @@ import Image from 'next/image';
 import { buttonVariants } from '@/components/ui/button';
 import { CardContent } from '@/components/ui/card';
 import { Card } from '@/components/ui/card';
+
 type Params = Promise<{ id: string }>;
-async function getDats(id: string) {
+
+async function getData(id: string) {
     if (!process.env.DATABASE_URL) {
         return notFound();
     }
@@ -20,9 +22,10 @@ async function getDats(id: string) {
     }
     return data;
 }
+
 export default async function IdPage({ params }: { params: Params }) {
     const { id } = await params;
-    const data = await getDats(id);
+    const data = await getData(id);
 
     return (
         <div className='p-6 max-w-3xl mx-auto'>
